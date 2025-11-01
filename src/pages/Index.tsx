@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
 import { Activity, Heart, Droplet, Scale, AlertCircle, CheckCircle2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
@@ -41,6 +42,21 @@ const Index = () => {
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSliderChange = (field: keyof FormData, value: number[]) => {
+    setFormData((prev) => ({ ...prev, [field]: value[0].toString() }));
+  };
+
+  const fieldRanges = {
+    pregnancies: { min: 0, max: 20, step: 1 },
+    glucose: { min: 0, max: 300, step: 1 },
+    bloodPressure: { min: 0, max: 200, step: 1 },
+    skinThickness: { min: 0, max: 100, step: 1 },
+    insulin: { min: 0, max: 500, step: 1 },
+    bmi: { min: 10, max: 60, step: 0.1 },
+    diabetesPedigree: { min: 0, max: 2.5, step: 0.001 },
+    age: { min: 1, max: 120, step: 1 },
   };
 
   const validateForm = (): boolean => {
@@ -126,10 +142,19 @@ const Index = () => {
           <CardContent className="space-y-6">
             {/* Form Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="pregnancies" className="text-base font-medium">
+              <div className="space-y-3">
+                <Label htmlFor="pregnancies" className="text-base font-medium flex items-center justify-between">
                   Pregnancies
+                  <span className="text-sm text-primary font-semibold">{formData.pregnancies || "0"}</span>
                 </Label>
+                <Slider
+                  value={[Number(formData.pregnancies) || 0]}
+                  onValueChange={(value) => handleSliderChange("pregnancies", value)}
+                  min={fieldRanges.pregnancies.min}
+                  max={fieldRanges.pregnancies.max}
+                  step={fieldRanges.pregnancies.step}
+                  className="mb-2"
+                />
                 <Input
                   id="pregnancies"
                   type="number"
@@ -140,10 +165,19 @@ const Index = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="glucose" className="text-base font-medium">
+              <div className="space-y-3">
+                <Label htmlFor="glucose" className="text-base font-medium flex items-center justify-between">
                   Glucose Level (mg/dL)
+                  <span className="text-sm text-primary font-semibold">{formData.glucose || "0"}</span>
                 </Label>
+                <Slider
+                  value={[Number(formData.glucose) || 0]}
+                  onValueChange={(value) => handleSliderChange("glucose", value)}
+                  min={fieldRanges.glucose.min}
+                  max={fieldRanges.glucose.max}
+                  step={fieldRanges.glucose.step}
+                  className="mb-2"
+                />
                 <Input
                   id="glucose"
                   type="number"
@@ -154,10 +188,19 @@ const Index = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="bloodPressure" className="text-base font-medium">
+              <div className="space-y-3">
+                <Label htmlFor="bloodPressure" className="text-base font-medium flex items-center justify-between">
                   Blood Pressure (mm Hg)
+                  <span className="text-sm text-primary font-semibold">{formData.bloodPressure || "0"}</span>
                 </Label>
+                <Slider
+                  value={[Number(formData.bloodPressure) || 0]}
+                  onValueChange={(value) => handleSliderChange("bloodPressure", value)}
+                  min={fieldRanges.bloodPressure.min}
+                  max={fieldRanges.bloodPressure.max}
+                  step={fieldRanges.bloodPressure.step}
+                  className="mb-2"
+                />
                 <Input
                   id="bloodPressure"
                   type="number"
@@ -168,10 +211,19 @@ const Index = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="skinThickness" className="text-base font-medium">
+              <div className="space-y-3">
+                <Label htmlFor="skinThickness" className="text-base font-medium flex items-center justify-between">
                   Skin Thickness (mm)
+                  <span className="text-sm text-primary font-semibold">{formData.skinThickness || "0"}</span>
                 </Label>
+                <Slider
+                  value={[Number(formData.skinThickness) || 0]}
+                  onValueChange={(value) => handleSliderChange("skinThickness", value)}
+                  min={fieldRanges.skinThickness.min}
+                  max={fieldRanges.skinThickness.max}
+                  step={fieldRanges.skinThickness.step}
+                  className="mb-2"
+                />
                 <Input
                   id="skinThickness"
                   type="number"
@@ -182,10 +234,19 @@ const Index = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="insulin" className="text-base font-medium">
+              <div className="space-y-3">
+                <Label htmlFor="insulin" className="text-base font-medium flex items-center justify-between">
                   Insulin Level (μU/mL)
+                  <span className="text-sm text-primary font-semibold">{formData.insulin || "0"}</span>
                 </Label>
+                <Slider
+                  value={[Number(formData.insulin) || 0]}
+                  onValueChange={(value) => handleSliderChange("insulin", value)}
+                  min={fieldRanges.insulin.min}
+                  max={fieldRanges.insulin.max}
+                  step={fieldRanges.insulin.step}
+                  className="mb-2"
+                />
                 <Input
                   id="insulin"
                   type="number"
@@ -196,10 +257,19 @@ const Index = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="bmi" className="text-base font-medium">
+              <div className="space-y-3">
+                <Label htmlFor="bmi" className="text-base font-medium flex items-center justify-between">
                   BMI (Body Mass Index)
+                  <span className="text-sm text-primary font-semibold">{formData.bmi || "0"}</span>
                 </Label>
+                <Slider
+                  value={[Number(formData.bmi) || 0]}
+                  onValueChange={(value) => handleSliderChange("bmi", value)}
+                  min={fieldRanges.bmi.min}
+                  max={fieldRanges.bmi.max}
+                  step={fieldRanges.bmi.step}
+                  className="mb-2"
+                />
                 <Input
                   id="bmi"
                   type="number"
@@ -211,10 +281,19 @@ const Index = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="diabetesPedigree" className="text-base font-medium">
+              <div className="space-y-3">
+                <Label htmlFor="diabetesPedigree" className="text-base font-medium flex items-center justify-between">
                   Diabetes Pedigree Function
+                  <span className="text-sm text-primary font-semibold">{formData.diabetesPedigree || "0.000"}</span>
                 </Label>
+                <Slider
+                  value={[Number(formData.diabetesPedigree) || 0]}
+                  onValueChange={(value) => handleSliderChange("diabetesPedigree", value)}
+                  min={fieldRanges.diabetesPedigree.min}
+                  max={fieldRanges.diabetesPedigree.max}
+                  step={fieldRanges.diabetesPedigree.step}
+                  className="mb-2"
+                />
                 <Input
                   id="diabetesPedigree"
                   type="number"
@@ -226,10 +305,19 @@ const Index = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="age" className="text-base font-medium">
+              <div className="space-y-3">
+                <Label htmlFor="age" className="text-base font-medium flex items-center justify-between">
                   Age (years)
+                  <span className="text-sm text-primary font-semibold">{formData.age || "0"}</span>
                 </Label>
+                <Slider
+                  value={[Number(formData.age) || 0]}
+                  onValueChange={(value) => handleSliderChange("age", value)}
+                  min={fieldRanges.age.min}
+                  max={fieldRanges.age.max}
+                  step={fieldRanges.age.step}
+                  className="mb-2"
+                />
                 <Input
                   id="age"
                   type="number"
