@@ -17,8 +17,8 @@ jobs:
           USERNAME: testing230879-rgb
       - name: Commit & Push
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name testing230879-rgb
+          git config user.email testing230879@gmail.com
           git add -A .
           git commit -m "generated 3D contribution graph"
           git push
